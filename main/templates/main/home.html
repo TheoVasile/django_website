@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+das ist crazy!
+{% for article in articles %}
+<p>{{article.title}}</p>
+<p>{{article.published}}</p>
+<p>{{article.content | safe}}</p>
+
+<br>
+{% endfor %}
+</body>
+</html>
