@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    {% load static %}
+    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajaxlibs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-das ist crazy!
-{% for article in articles %}
-<p>{{article.title}}</p>
-<p>{{article.published}}</p>
-<p>{{article.content | safe}}</p>
 
-<br>
-{% endfor %}
+<body>
+
+    das ist crazy!
+
+
+
+
+<div class="row">
+    {% for article in articles %}
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{article.title}}</span>
+            <p>{{article.published}}</p>
+            <p>{{article.content|safe}}</p>
+            <br>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
 </body>
+
+<script src="{% static 'tinymce/js/prism.js' %}"></script>
+
 </html>
