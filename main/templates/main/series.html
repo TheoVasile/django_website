@@ -1,0 +1,36 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+<!--
+    <div class="row">
+        {% for articleSeries, partone in part_ones.items %}
+
+            <div class="col s12 m6 l4">
+                <a href="{{partone}}", style="color:#000">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="card-title">{{articleSeries.series}}</div>
+                            <p>{{articleSeries.series_summary}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    -->
+    <div class="row">
+        {% for serie in series %}
+            {{serie}}
+            <div class="col s12 m6 l4">
+                <a href="{{serie.series}}", style="color:#000">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="card-title">{{serie.series}}</div>
+                            <p>{{serie.series_summary}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

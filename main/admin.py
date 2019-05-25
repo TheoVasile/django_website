@@ -1,17 +1,22 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, ArticleSeries, ArticleCategory
 from tinymce.widgets import TinyMCE
 from django.db import models
 
-class AdminArticle(admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
+
     fieldsets = [
-        ('title/date', {'fields':['title','published']}),
-        ('content', {'fields':['content']})
+        ("Title/date", {'fields': ["article_title", "article_published"]}),
+        ("URL", {'fields': ["article_directory"]}),
+        ("Series", {'fields': ["article_series"]}),
+        ("Content", {"fields": ["article_content"]})
     ]
 
     formfield_overrides = {
-        models.TextField:{'widget':TinyMCE()}
-    }
+        models.TextField: {'widget': TinyMCE(attrs={'cols': 80, 'rows': 30})},
+        }
 
-# Register your models here.
-admin.site.register(Article, AdminArticle)
+
+admin.site.register(ArticleSeries)
+admin.site.register(ArticleCategory)
+admin.site.register(Article,ArticleAdmin)

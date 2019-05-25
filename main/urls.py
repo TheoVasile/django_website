@@ -20,5 +20,9 @@ app_name = "main"
 
 urlpatterns = [
     path("", views.homepage, name="homepage"),
-    path("register", views.register, name="register")
+    path("register/", views.register, name="register"),
+    path("logout/", views.logout_request, name="logout"),
+    path("login/", views.login_request, name="login"),
+    path("<category>/", views.directory, name="directory"),
+    path("<category>/<series>/", views.subdirectory, name="subdirectory")
 ]
