@@ -33,6 +33,8 @@ class Article(models.Model):
     article_title = models.CharField(max_length=200, default=1)
     article_content = models.TextField()
     article_published = models.DateTimeField('date published')
+    article_image = models.ImageField(upload_to="images", null=True)
+    article_file = models.FileField(upload_to="files", null=True)
     #https://docs.djangoproject.com/en/2.1/ref/models/fields/#django.db.models.ForeignKey.on_delete
     article_series = models.ForeignKey(ArticleSeries, default=1, verbose_name="Series", on_delete=models.SET_DEFAULT)
     article_directory = models.CharField(max_length=200, default=1)

@@ -10,16 +10,23 @@
 <div class="row">
     {% for article in articles %}
     <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">{{article.article_title}}</span>
+      <div class="card">
+        <div class="card-img">
+            <img class="responsive-img" src="{{article.article_image.url}}" alt="img">
+        </div>
+        <div class="card-content black-text">
+            <span class="card-title">{{article.article_title}}</span>
             <p style="font-size:50%">{{article.article_published}}</p>
             <p>{{article.article_content|safe}}</p>
+            <a href="{{article.article_file.url}}">download</a>
+            <a></a>
             <br>
         </div>
         <div class="card-action">
-            <a onclick="messages.success(request, 'hahaha')" class="btn">Toast!</a>
-            <a class="btn-rounded btn-small waves-light black">{{article.article_directory}}</a>
+                <a class="chip black-text" href="{{article.article_series.series_category.category_directory}}">
+                    {{article.article_series.series_category}}
+                    <i class="material-icons"></i>
+                </a>
         </div>
       </div>
     </div>

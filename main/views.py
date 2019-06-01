@@ -5,9 +5,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm
+from mysite import settings
+from django.http import HttpResponse, Http404
+import os
 
 # Create your views here.
-def directory(request, category):
+def directory(request, directory):
     #check if url a category
     """
     categories = [c.category_directory for c in ArticleCategory.objects.all()] #all the categories
@@ -27,10 +30,27 @@ def directory(request, category):
         return HttpResponse(f"{directory} an article")
     return HttpResponse("huh?")
     """
-    matching_series = ArticleSeries.objects.filter(series_category__category_directory=category)
-    return render(request=request,
+    categories = [c.category_directory for c in ArticleCategory.objects.all()]
+    if directory in categories:
+        matching_series = ArticleSeries.objects.filter(series_category__category_directory=directory)
+        return render(request=request,
                   template_name="main/series.html",
                   context={"series":matching_series})
+    series = [s.series for s in ArticleSeries.objects.all()]
+    if directory in series:
+        matching_articles = Article.objects.filter(article_series__series=directory)
+        return render(request=request,
+                      template_name="main/home.html",
+                      context={"articles": matching_articles})
+
+def download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
 
 def subdirectory(request, category, series):
     matching_articles = Article.objects.filter(article_series__series=series)

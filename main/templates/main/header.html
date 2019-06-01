@@ -3,15 +3,14 @@
 
 <head>
     {% load static %}
-    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
-
+    <link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajaxlibs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compiled and minified JavaScript for Materialize CSS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 {% include "main/includes/navbar.html" %}
-<script>M.toast({html: "hahaha", classes: 'green rounded', displayLength:2000});</script>
 {% include "main/includes/messages.html" %}
 
 <div class="container">

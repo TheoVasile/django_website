@@ -1,14 +1,14 @@
 <nav>
-    <div class="nav-wrapper">
-      <a href="/home" class="brand-logo center">Blended Bits</a>
+    <div class="black nav-wrapper">
+      <a href="/" class="brand-logo center orange-text">Blended Bits</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a href="/">Home</a></li>
           {% if user.is_authenticated %}
-            <li><a href="/account">{{user.username}}</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/account/">{{user.username}}</a></li>
+            <li><a href="/logout/">Logout</a></li>
           {% else %}
-            <li><a href="/register">Register</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="/register/">Register</a></li>
+            <li><a href="/login/">Login</a></li>
           {% endif %}
       </ul>
     </div>

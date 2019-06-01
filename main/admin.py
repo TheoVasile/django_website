@@ -9,7 +9,9 @@ class ArticleAdmin(admin.ModelAdmin):
         ("Title/date", {'fields': ["article_title", "article_published"]}),
         ("URL", {'fields': ["article_directory"]}),
         ("Series", {'fields': ["article_series"]}),
-        ("Content", {"fields": ["article_content"]})
+        ("Content", {"fields": ["article_content"]}),
+        ("Image", {"fields": ["article_image"]}),
+        ("File", {"fields": ["article_file"]})
     ]
 
     formfield_overrides = {
