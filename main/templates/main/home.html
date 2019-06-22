@@ -7,26 +7,40 @@
 </head>
 
 <body>
+
+
+
 <div class="row">
     {% for article in articles %}
-    <div class="col s12 m6">
+    <div class="col s12 m3">
       <div class="card">
-        <div class="card-img">
-            <img class="responsive-img" src="{{article.article_image.url}}" alt="img">
+
+        <div class="card-image">
+            <img src="{{article.article_image.url}}" alt="img">
         </div>
         <div class="card-content black-text">
             <span class="card-title">{{article.article_title}}</span>
             <p style="font-size:50%">{{article.article_published}}</p>
             <p>{{article.article_content|safe}}</p>
-            <a href="{{article.article_file.url}}">download</a>
-            <a></a>
             <br>
+            <a class="chip black-text" href="{{article.article_category.category_directory}}">
+                {{article.article_category}}
+                <i class="material-icons"></i>
+            </a>
         </div>
-        <div class="card-action">
-                <a class="chip black-text" href="{{article.article_series.series_category.category_directory}}">
-                    {{article.article_series.series_category}}
-                    <i class="material-icons"></i>
-                </a>
+          <div class="card-action">
+            <a href="{{article.article_file.url}}">download</a>
+              <form action="#">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input id="path" class="file-path validate" type="text">
+                    </div>
+                </div>
+  </form>
         </div>
       </div>
     </div>

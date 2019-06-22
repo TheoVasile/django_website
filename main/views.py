@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Article, ArticleCategory, ArticleSeries
+from .models import Article, ArticleCategory
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -11,46 +11,17 @@ import os
 
 # Create your views here.
 def directory(request, directory):
-    #check if url a category
-    """
-    categories = [c.category_directory for c in ArticleCategory.objects.all()] #all the categories
-    if directory in categories: #check if directory reffers to a category
-        matching_series = ArticleSeries.objects.filter(series_category__category_directory=directory) #find the series that match the category
-        series_urls = {}
-
-        for m in matching_series.all():
-            part_one = Article.objects.filter(article_series__series=m.series).earliest("article_published") #find articles that match the series
-            series_urls[m] = part_one.article_directory #link for the series
-
-        return render(request,
-                      'main/series.html',
-                      {"part_ones":series_urls})
-    articles = [a.article_directory for a in Article.objects.all()]
-    if directory in articles:
-        return HttpResponse(f"{directory} an article")
-    return HttpResponse("huh?")
-    """
     categories = [c.category_directory for c in ArticleCategory.objects.all()]
     if directory in categories:
-        matching_series = ArticleSeries.objects.filter(series_category__category_directory=directory)
-        return render(request=request,
-                  template_name="main/series.html",
-                  context={"series":matching_series})
-    series = [s.series for s in ArticleSeries.objects.all()]
-    if directory in series:
-        matching_articles = Article.objects.filter(article_series__series=directory)
-        return render(request=request,
-                      template_name="main/home.html",
-                      context={"articles": matching_articles})
+        matching_articles = Article.objects.filter(article_category__category_directory=directory)
+        if len(matching_articles) > 0:
+            return render(request=request,
+                template_name="main/home.html",
+                context={"articles":matching_articles})
+        else:
+            return render(request=request,
+                          template_name="main/blank.html")
 
-def download(request, path):
-    file_path = os.path.join(settings.MEDIA_ROOT, path)
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
-    raise Http404
 
 def subdirectory(request, category, series):
     matching_articles = Article.objects.filter(article_series__series=series)
@@ -62,6 +33,10 @@ def homepage(request):
     return render(request=request,
                   template_name="main/categories.html",
                   context={"categories":ArticleCategory.objects.all})
+
+def account(request):
+    return render(request=request,
+                  template_name="main/account.html")
 
 def register(request):
     if request.method == "POST":
@@ -90,7 +65,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, f"congrats on logging in {username}!")
+                messages.success(request, "logged in")
                 return redirect("main:homepage")
         else:
             messages.error(request, "invalid username or password")
